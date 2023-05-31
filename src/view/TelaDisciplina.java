@@ -100,11 +100,11 @@ public class TelaDisciplina {
 		d.setIdDisciplina(console.nextInt()); 
 		console.nextLine();
 		  
-		System.out.print("    |     Nome: "); 
-		d.setNomedisciplina(console.nextLine());
-		
-		System.out.print("    |     CargaHoraria: "); 
-		d.setNomedisciplina(console.nextLine());
+	    System.out.print("    |     Nome: ");
+	    d.setNomedisciplina(console.nextLine());
+
+	    System.out.print("    |     CargaHorária: ");
+	    d.setCargahoraria(console.nextInt());
 		  
 		System.out.println("    =========================");
 		disciplinaDAO.update(d);

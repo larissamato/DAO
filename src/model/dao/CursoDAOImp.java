@@ -37,7 +37,7 @@ public class CursoDAOImp implements CursoDAO {
 				System.out.println(obj.toString() + " foi criado com sucesso !");
 			}
 			else {
-				System.out.println("N�o foi poss�vel cadastrar o curso !");
+				System.out.println("Nao foi possivel cadastrar o curso !");
 			}
 			
 		}
@@ -62,7 +62,7 @@ public class CursoDAOImp implements CursoDAO {
 		            System.out.println(obj.toString() + " foi atualizado com sucesso !");
 		        }
 		        else {
-		            System.out.println("N�o foi poss�vel atualizar o curso !");
+		            System.out.println("Nao foi possivel atualizar o curso !");
 		        }
 		        
 		    }
@@ -127,14 +127,14 @@ public class CursoDAOImp implements CursoDAO {
 
 	@Override
 	public List<Curso> findAll() {
-	    PreparedStatement stmt = null;
+	    PreparedStatement pst = null;
 	    ResultSet rs = null;
 	    List<Curso> cursos = new ArrayList<>();
 	    
 	    try {
 	        String sql = "SELECT * FROM curso";
-	        stmt = conexao.prepareStatement(sql);
-	        rs = stmt.executeQuery(sql);
+	        pst = conexao.prepareStatement(sql);
+	        rs = pst.executeQuery(sql);
 	        
 	        while (rs.next()) {
 	            Curso curso = new Curso();
@@ -149,7 +149,7 @@ public class CursoDAOImp implements CursoDAO {
 	        e.printStackTrace();
 	    }
 	    finally {
-	        DB.fechaPreparedStatement(stmt);
+	        DB.fechaPreparedStatement(pst);
 	        DB.fechaResultSet(rs);
 	    }
 	    

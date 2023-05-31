@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.db.DB;
 import model.entities.Disciplina;
 
 public class DisciplinaDAOImp implements DisciplinaDAO {
@@ -97,14 +99,67 @@ public class DisciplinaDAOImp implements DisciplinaDAO {
 
 	@Override
 	public Disciplina findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		   PreparedStatement pst = null;
+		    ResultSet rs = null;
+		    Disciplina disciplina = null;
+		    
+		    try {
+		        String sql = "SELECT * FROM disciplina WHERE iddisciplina = ?";
+		        pst = conexao.prepareStatement(sql);
+		        pst.setInt(1, id);
+		        
+		        rs = pst.executeQuery();
+		        
+		        if (rs.next()) {
+		            disciplina = new Disciplina();
+		            disciplina.setIdDisciplina(rs.getInt("iddisciplina"));
+		            disciplina.setNomedisciplina(rs.getString("nomedisciplina"));
+		            disciplina.setCargahoraria(rs.getInt("cargahoraria"));
+		        }
+		        
+		    }
+		    catch(SQLException e) {
+		        e.printStackTrace();
+		    }
+		    finally {
+		        DB.fechaPreparedStatement(pst);
+		        DB.fechaResultSet(rs);
+		    }
+		    
+		    return disciplina;
+
 	}
 
 	@Override
 	public List<Disciplina> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement pst = null;
+	    ResultSet rs = null;
+	    List<Disciplina> disciplinas = new ArrayList<>();
+	    
+	    try {
+	        String sql = "SELECT * FROM disciplina";
+	        pst = conexao.prepareStatement(sql);
+	        rs = pst.executeQuery(sql);
+	        
+	        while (rs.next()) {
+	            Disciplina disciplina = new Disciplina();
+	            disciplina.setIdDisciplina(rs.getInt("iddisciplina"));
+	            disciplina.setNomedisciplina(rs.getString("nomedisciplina"));
+	            disciplina.setCargahoraria(rs.getInt("cargahoraria"));
+	            
+	            disciplinas.add(disciplina);
+	        }
+	        
+	    }
+	    catch(SQLException e) {
+	        e.printStackTrace();
+	    }
+	    finally {
+	        DB.fechaPreparedStatement(pst);
+	        DB.fechaResultSet(rs);
+	    }
+	    
+	    return disciplinas;
 	}
 
 }
