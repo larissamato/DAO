@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
+
 
 import model.dao.AlunoDAO;
 import model.dao.FactoryDAO;
@@ -51,23 +53,34 @@ public class TelaAluno {
 	}
 	
 	private static Scanner cadastrar(Scanner console) throws ParseException {
-		
-		Aluno a = new Aluno(); 
-		
-		System.out.println("\n\n");
-		System.out.println("    ###   Aluno-Cadastrar ###");
-		System.out.println("    =========================");
-		
-		System.out.print("    |     Nome: "); 
-	    a.setNome(console.nextLine());
-	    
+
+	    Aluno a = new Aluno();
+
+	    System.out.println("\n\n");
+	    System.out.println("    ###   Aluno-Cadastrar ###");
 	    System.out.println("    =========================");
-	    
+
+	    System.out.print("    |     Nome: ");
+	    a.setNome(console.nextLine());
+
+	    System.out.print("    |     Sexo: ");
+	    a.setSexo(console.nextLine());
+
+	    System.out.print("    |     Data (dd/MM/yyyy): ");
+	    String dataString = console.nextLine();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    a.setDt_nasc(new java.sql.Date(dateFormat.parse(dataString).getTime()));
+
+	    System.out.print("    |     Nota: ");
+	    a.setNota(console.nextFloat());
+
+	    System.out.println("    =========================");
+
 	    alunoDao.insert(a);
-	    
+
 	    console.nextLine();
 	    return console;
-	} 
+	}
 	
 	private static Scanner listar(Scanner console) {
 				
@@ -88,19 +101,28 @@ public class TelaAluno {
 	
 	private static Scanner alterar(Scanner console) throws ParseException {
 		
-		Aluno a = new Aluno(); 
-		
-		System.out.println("\n\n");
-		System.out.println("    ###   Aluno-Alterar   ###");
-		System.out.println("    =========================");  		
-		System.out.print("    |     Id: "); 
-		a.setIdaluno(console.nextInt()); 
-		console.nextLine();
-		  
-		System.out.print("    |     Nome: "); 
-		a.setNome(console.nextLine());
-		  
-		System.out.println("    =========================");
+		Aluno a = new Aluno();
+
+	    System.out.println("\n\n");
+	    System.out.println("    ###   Aluno-Cadastrar ###");
+	    System.out.println("    =========================");
+
+	    System.out.print("    |     Nome: ");
+	    a.setNome(console.nextLine());
+
+	    System.out.print("    |     Sexo: ");
+	    a.setSexo(console.nextLine());
+
+	    System.out.print("    |     Data (dd/MM/yyyy): ");
+	    String dataString = console.nextLine();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    a.setDt_nasc(new java.sql.Date(dateFormat.parse(dataString).getTime()));
+
+	    System.out.print("    |     Nota: ");
+	    a.setNota(console.nextFloat());
+
+	    System.out.println("    =========================");
+
 		alunoDao.update(a);
 		
 		console.nextLine();
